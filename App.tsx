@@ -8,6 +8,7 @@ const App = () => {
     PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
     );
+    
     pushNotification();
     // for foreground State
     const unsubscribe = messaging().onMessage(async remoteMessage => {

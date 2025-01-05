@@ -1,12 +1,13 @@
-import notifee, { EventType } from '@notifee/react-native';
+import notifee, { EventType, AndroidImportance } from '@notifee/react-native';
 
 export async function ForegroundHandler(data: any, state: string) {
   await notifee.requestPermission();
 
   const channelId = await notifee.createChannel({
     id: 'default',
-    name: 'Default Channel',
-    sound : "default"
+    name: 'default_channel',
+    sound: "buzzer",
+    importance: AndroidImportance.HIGH,
   });
 
   await notifee.displayNotification({
@@ -19,9 +20,8 @@ export async function ForegroundHandler(data: any, state: string) {
       },
     },
   });
-
-  // console.log(Notification clicked in ${state} state);
 }
+
 const handleNotificationPress = async (event: any) => {
   if (event.type === EventType.PRESS) {
     console.log('Notification Pressed in Foreground...', event);
