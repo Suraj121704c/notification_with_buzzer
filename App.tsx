@@ -2,6 +2,7 @@ import { View, Text, PermissionsAndroid, StyleSheet } from 'react-native';
 import React, { useEffect } from 'react';
 import messaging from '@react-native-firebase/messaging';
 import ForegroundHandler from './src/helper/ForgroundHelper';
+import RBSheet from 'react-native-raw-bottom-sheet';
 
 const App = () => {
   useEffect(() => {
