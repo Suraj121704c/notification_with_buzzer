@@ -1,16 +1,25 @@
-import { View, Text, PermissionsAndroid, StyleSheet } from 'react-native';
+import { PermissionsAndroid } from 'react-native';
 import React, { useEffect } from 'react';
 import messaging from '@react-native-firebase/messaging';
 import ForegroundHandler from './src/helper/ForgroundHelper';
-import RBSheet from 'react-native-raw-bottom-sheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import BottomSheet from './src/components/BottomSheet';
+import DeviceInfo from 'react-native-device-info';
 
 const App = () => {
+  const getId = async () => {
+    let id = await DeviceInfo.getUniqueId();
+    console.log(id, "uniqueId");
+  }
+
   useEffect(() => {
     PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
     );
-    
+
     pushNotification();
+    getId();
+
     // for foreground State
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       console.log('Notification recieve in foreground state', remoteMessage);
@@ -52,18 +61,10 @@ const App = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>App</Text>
-    </View>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <BottomSheet />
+    </GestureHandlerRootView>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
