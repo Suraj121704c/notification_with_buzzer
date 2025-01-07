@@ -4,7 +4,7 @@ export async function ForegroundHandler(data: any, state: string) {
   await notifee.requestPermission();
 
   const channelId = await notifee.createChannel({
-    id: 'default',
+    id: 'default_channel',
     name: 'default_channel',
     sound: "buzzer",
     importance: AndroidImportance.HIGH,
@@ -15,6 +15,7 @@ export async function ForegroundHandler(data: any, state: string) {
     body: data?.notification?.body,
     android: {
       channelId,
+      sound: 'buzzer',
       pressAction: {
         id: `${state}`,
       },
